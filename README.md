@@ -13,7 +13,7 @@
 ### Urls for check
 
 
-PUT(please attach files) - http://127.0.0.1:5000/get-create-update
+PUT(please attach files) - http://127.0.0.1:5000/get-create-update \
 GET(pk - id of item which we wanna get ) - http://127.0.0.1:5000/get-create-update/<pk>
 
 
