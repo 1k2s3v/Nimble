@@ -18,7 +18,7 @@ session = boto3.Session(
         aws_secret_access_key=os.getenv('SECRET_ACCESS_KEY'),)
 
 
-def get_files_from_request(request: werkzeug.local.LocalProxy, index) -> dict[str, werkzeug.datastructures.FileStorage]:
+def get_files_from_request(request: werkzeug.local.LocalProxy, index:int) -> dict[str, werkzeug.datastructures.FileStorage]:
     list_of_sent_files = list(request.files.lists())
     sent_file = list_of_sent_files[index]
     key = sent_file[0]
@@ -37,7 +37,7 @@ def put_to_s3(key_file_value: dict) -> True:
     return True
 
 
-def get_file_by_pk(file_name: str) -> bytes:
+def get_file_by_pk(file_name: str) -> bytes|None:
     s3 = boto3.client('s3')
     try:
         response = s3.get_object(Bucket='nimble-test-task', Key=file_name)
@@ -70,7 +70,7 @@ def upload_file(pk):
         requested_file = get_file_by_pk(file_name)
         if requested_file is None:
             return 'That file does not exist', 400
-    return requested_file, 200
+        return requested_file, 200
 
 
 if __name__ == '__main__':
