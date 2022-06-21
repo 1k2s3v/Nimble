@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### Task
 Це тестове завдання дуже схоже на проблему, яку ми вирішували свого часу в продукті.
 Ми хочемо зрозуміти, як ти вмієш враховувати різні вимоги в одному проєкті.
@@ -13,3 +14,5 @@
 ### Urls for check
 PUT(please attach files) - http://127.0.0.1:5000/get-create-update
 GET(pk - id of item which we wanna get ) - http://127.0.0.1:5000/get-create-update/<pk>
+=======
+# Nimble
