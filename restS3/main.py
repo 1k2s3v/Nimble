@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import boto3
 from werkzeug.local import LocalProxy
 from flask import request, Flask
+from botocore.exceptions import ClientError
 
 access_key = os.getenv('ACCESS_KEY_ID')
 secret_access_key = os.getenv('SECRET_ACCESS_KEY')
@@ -38,9 +39,14 @@ def put_to_s3(key_file_value: dict) -> True:
 
 def get_file_by_pk(file_name: str) -> bytes:
     s3 = boto3.client('s3')
-    response = s3.get_object(Bucket='nimble-test-task', Key=file_name)
-    requested_file = response['Body'].read()
-    return requested_file
+    try:
+        response = s3.get_object(Bucket='nimble-test-task', Key=file_name)
+        requested_file = response['Body'].read()
+        return requested_file
+    except ClientError as ex:
+        if ex.response['Error']['Code'] == 'NoSuchKey':
+            return None
+
 
 
 @app.route('/get-create-update/<pk>', methods=['GET', 'PUT'])
